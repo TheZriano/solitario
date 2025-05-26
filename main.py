@@ -33,7 +33,7 @@ def screenRefresh(message=""):
 
 def writeFinalDecks():
     #disegna le scale finali, restituisce la stringa DA STAMPARE
-    string="""f1)     f2)     f3)     f4)
+    string="""♠)      ♡)      ♣)      ♢)
 ______  ______  ______  ______\n"""
     for deck in finaldecks:
         if deck==[]:
@@ -215,7 +215,12 @@ while gameOn:
             
 
         case "move":
+            if len(command)<3:
+                screenRefresh("Mossa non valida")
+                continue
+
             if len(command)==3: command.append("1")
+            
             if command[1] in ["hand","1","2","3","4","5","6","7"] and command[2] in ["1","2","3","4","5","6","7","f"] and command[3].isdigit():
                 if command[1]=="hand":
                     if hand==[]:
