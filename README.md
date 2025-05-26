@@ -6,7 +6,7 @@ DESCRIZIONE: Gioco del solitario classico eseguito interamente nella console
 DIPENDENZE: librerie os e random
 PAGINA GITHUB: https://github.com/TheZriano/solitario
 
-
+COME ESEGUIRE IL PROGRAMMA: avviare il file main.py
 
 
 COMANDI DI GIOCO:
