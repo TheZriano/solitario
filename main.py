@@ -104,9 +104,9 @@ def writeDeckAndHand():
     rows=[
         "Mazzo:  Mano:",
         "______  ",
-        ("|▒▒▒▒|  "if deck!=[] else "|    |"),
-        ("|▒▒▒▒|  "if deck!=[] else "|    |"),
-        ("|▒▒▒▒|  "if deck!=[] else "|    |"),
+        ("|▒▒▒▒|  "if deck!=[] else "|    |  "),
+        ("|▒▒▒▒|  "if deck!=[] else "|    |  "),
+        ("|▒▒▒▒|  "if deck!=[] else "|    |  "),
         "¯¯¯¯¯¯  ",
         ]
     for card in hand:
@@ -209,8 +209,16 @@ while gameOn:
                     random.shuffle(scrapsDeck)
                     deck=scrapsDeck.copy()
                     scrapsDeck=[]
+            elif hand!=[]:
+                deck=hand.copy()
+                hand=[]
+                hand.append(deck[-1])
+                hand[-1].show=True
+                deck.pop(-1)
+                screenRefresh("Mazzo vuoto, carte della mano rimescolate")
+                continue
             else:
-                screenRefresh("Mossa non valida, Mazzo vuoto!")
+                screenRefresh("Mazzo vuoto")
                 continue
             
 
@@ -228,9 +236,13 @@ while gameOn:
                         continue
                     card=hand[-1]
                     if command[2] in ["1","2","3","4","5","6","7"]:
-                        if tableau[int(command[2])-1]==[] and card.value==12:
-                            hand.pop(-1)
-                            tableau[int(command[2])-1].append(card)
+                        if tableau[int(command[2])-1]==[]:
+                            if card.value==12:
+                                hand.pop(-1)
+                                tableau[int(command[2])-1].append(card)
+                            else:
+                                screenRefresh("Mossa non valida")
+                                continue
                         elif tableau[int(command[2])-1][-1].value==card.value+1 and tableau[int(command[2])-1][-1].seed%2!=card.seed%2:
                             hand.pop(-1)
                             tableau[int(command[2])-1].append(card)
@@ -265,10 +277,14 @@ while gameOn:
                             screenRefresh("Mossa non valida")
                             continue
                     elif command[2] in ["1","2","3","4","5","6","7"] and command[2]!=command[1]:
-                        if tableau[int(command[2])-1]==[] and cards[-1].value==12:
-                            tableau[int(command[2])-1].extend(cards)
-                            del tableau[int(command[1])-1][-int(command[3]):]
-                            if tableau[int(command[1])-1]!=[]: tableau[int(command[1])-1][-1].show=True
+                        if tableau[int(command[2])-1]==[]:
+                            if cards[0].value==12:
+                                tableau[int(command[2])-1].extend(cards)
+                                del tableau[int(command[1])-1][-int(command[3]):]
+                                if tableau[int(command[1])-1]!=[]: tableau[int(command[1])-1][-1].show=True
+                            else:
+                                screenRefresh("Mossa non valida")
+                                continue
 
                         elif tableau[int(command[2])-1][-1].value==cards[0].value+1 and tableau[int(command[2])-1][-1].seed%2!=cards[0].seed%2:
                             tableau[int(command[2])-1].extend(cards)
