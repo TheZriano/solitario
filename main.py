@@ -250,7 +250,9 @@ while gameOn:
                             screenRefresh("Mossa non valida")
                             continue
                     elif command[2] =="f":
-
+                        if finaldecks[card.seed]==[] and card.value!=0:
+                            screenRefresh("Mossa non valida")
+                            continue
                         if (finaldecks[card.seed]==[] and card.value==0) or finaldecks[card.seed][-1].value==card.value-1:
                             hand.pop(-1)
                             finaldecks[card.seed].append(card)
@@ -266,6 +268,9 @@ while gameOn:
                     if command[2] =="f":
                         if len(cards)==1:
                             card=cards[0]
+                            if finaldecks[card.seed]==[] and card.value!=0:
+                                screenRefresh("Mossa non valida")
+                                continue
                             if (finaldecks[card.seed]==[] and card.value==0) or finaldecks[card.seed][-1].value==card.value-1:
                                 tableau[int(command[1])-1].pop(-1)
                                 finaldecks[card.seed].append(card)
