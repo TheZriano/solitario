@@ -16,7 +16,7 @@ values=["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
 
 def screenRefresh(message=""):
     #Disegna sulla console tutti i dati (deck, hand, tableau, e finaldecks) cancellando tutto prima
-    os.system("cls")
+    os.system("cls" if os.name == "nt" else "clear")
     print(f""" SOLITARIO \n\nFai la tua mossa!\n{message}\n """) #Titolo della pagina
 
     #disegno deck + mano
